@@ -11,6 +11,16 @@ router.get('/', (request, response, next) => {
     });
 });
 
+router.get('/:id', (request, response, next) => {
+    const { id } = request.params;
+
+    pool.query('SELECT * FROM habitats WHERE id = $1', [id], (err, res) => {
+        if (err) return next(err);
+
+        response.json(res.rows);
+    });
+});
+
 router.post('/', (request, response, next) => {
     const { name, climate, temperature } = request.body;
 
@@ -23,6 +33,16 @@ router.post('/', (request, response, next) => {
             response.redirect('/habitats');
         }
     )
+});
+
+router.delete('/:id', (request, response, next) => {
+    const { id } = request.params;
+
+    pool.query('DELETE FROM habitats WHERE id=($1)', [id], (err, res) => {
+        if (err) return next(err);
+
+        response.redirect('/habitats');
+    });
 });
 
 
