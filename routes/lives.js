@@ -20,7 +20,21 @@ router.get('/conditions', (request, response, next) => {
 
             response.json(res.rows);
         }
-    )
+    );
+});
+
+router.post('/', (request, response, next) => {
+    const { monster, habitat } = request.body;
+
+    pool.query(
+        'INSERT INTO lives(monster, habitat) VALUES($1, $2)',
+        [monster, habitat],
+        (err, res) => {
+            if (err) return next(err);
+
+            response.redirect('/lives');
+        }
+    );
 });
 
 module.exports = router;

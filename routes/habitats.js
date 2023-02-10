@@ -32,7 +32,7 @@ router.post('/', (request, response, next) => {
 
             response.redirect('/habitats');
         }
-    )
+    );
 });
 
 router.put('/:id', (request, response, next) => {
@@ -51,10 +51,10 @@ router.put('/:id', (request, response, next) => {
             (err, res) => {
                 if (err) return next(err);
 
-                if (index === fields.length - 1) response.redirect('/habitats')
+                if (index === fields.length - 1) response.redirect('/habitats');
             }
-        )
-    })
+        );
+    });
 });
 
 router.delete('/:id', (request, response, next) => {

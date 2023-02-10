@@ -53,7 +53,7 @@ router.put('/:id', (request, response, next) => {
     
                 if (index === fields.length - 1) response.redirect('/monsters');
             }
-        )
+        );
     });
 });
 
