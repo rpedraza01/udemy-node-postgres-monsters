@@ -35,6 +35,28 @@ router.post('/', (request, response, next) => {
     )
 });
 
+router.put('/:id', (request, response, next) => {
+    const { id } = request.params;
+    const keys = ['name', 'climate', 'temperature'];
+    const fields = [];
+
+    keys.forEach(key => {
+        if (request.body[key]) fields.push(key);
+    });
+
+    fields.forEach((field, index) => {
+        pool.query(
+            `UPDATE habitats SET ${field}=($1) WHERE id=($2)`,
+            [request.body[field], id],
+            (err, res) => {
+                if (err) return next(err);
+
+                if (index === fields.length - 1) response.redirect('/habitats')
+            }
+        )
+    })
+});
+
 router.delete('/:id', (request, response, next) => {
     const { id } = request.params;
 
